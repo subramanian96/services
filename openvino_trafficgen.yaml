@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openvino-traffic-generator
+  labels:
+    app: openvino-traffic-generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app:  openvino-traffic-generator
+  template:
+    metadata:
+      labels:
+        app:  openvino-traffic-generator
+      annotations:
+        k8s.v1.cni.cncf.io/networks: '[{ "name": "ovn-networkobj"}]'
+        k8s.plugin.opnfv.org/nfn-network: '{ "type": "ovn4nfv", "interface": [{"name": "ovn-network", "interface": "net0", "ipAddress": "186.16.30.16"}]}'
+    spec:
+      containers:
+      - name: openvino-traffic-generator
+        image: ubuntu
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh", "-ec", "sleep 1000"]
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        securityContext:
+          privileged: true
+
