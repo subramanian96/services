@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 chown -R mysql:mysql /var/lib/mysql
-mysql_install_db --user mysql > /dev/null
+mysqld --initialize --user=mysql > /dev/null
 MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-"admin"}
 MYSQL_DATABASE=${MYSQL_DATABASE:-"br"}
 MYSQL_USER=${MYSQL_USER:-"admin"}
