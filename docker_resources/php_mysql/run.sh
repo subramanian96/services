@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
+/usr/sbin/mysqld --user=root
+/usr/sbin/mysqld --ignore-db-dir=lost+found
 chown -R mysql:mysql /var/lib/mysql
-mysqld --initialize --user=mysql > /dev/null
+/usr/sbin/mysqld --initialize --user=mysql > /dev/null
 MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-"admin"}
 MYSQL_DATABASE=${MYSQL_DATABASE:-"br"}
 MYSQL_USER=${MYSQL_USER:-"admin"}
